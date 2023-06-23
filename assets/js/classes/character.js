@@ -34,7 +34,12 @@ class Character {
     moveUp() {
         let newPosition = document.querySelector(`.col-${this.#posX}.row-${this.#posY - 1}`);
         
-        if((this.#posY - 1) >= 0)
+        if((this.#posY - 1) >= 0 && this.#godMode)
+        {
+            this.#posY--;
+            this.render();
+        }
+        else if((this.#posY - 1) >= 0)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -49,17 +54,18 @@ class Character {
                 this.render();
             }
         }
-        else if((this.#posY - 1) >= 0 && this.#godMode)
-        {
-            this.#posY--;
-            this.render();
-        }
+        
     }
     
     moveDown() {
         let newPosition = document.querySelector(`.col-${this.#posX}.row-${this.#posY + 1}`);
         
-        if((this.#posY + 1) <= 19)
+        if((this.#posY + 1) >= 0 && this.#godMode)
+        {
+            this.#posY--;
+            this.render();
+        }
+        else if((this.#posY + 1) <= 19)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -80,7 +86,12 @@ class Character {
     moveLeft() {
         let newPosition = document.querySelector(`.col-${this.#posX - 1}.row-${this.#posY}`);
         
-        if((this.#posX - 1) >= 0)
+        if((this.#posX - 1) >= 0 && this.#godMode)
+        {
+            this.#posY--;
+            this.render();
+        }
+        else if((this.#posX - 1) >= 0)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -100,7 +111,12 @@ class Character {
     moveRight() {
         let newPosition = document.querySelector(`.col-${this.#posX + 1}.row-${this.#posY}`);
         
-        if((this.#posX + 1) <= 29)
+        if((this.#posX + 1) >= 0 && this.#godMode)
+        {
+            this.#posY--;
+            this.render();
+        }
+        else if((this.#posX + 1) <= 29)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
