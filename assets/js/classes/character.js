@@ -2,10 +2,12 @@
 class Character {
     #posX;
     #posY;
+    #godMode;
     
     constructor(posX, posY) {
         this.#posX = 19;
         this.#posY = 15;
+        this.#godMode = false;
     }
     
     get posX() {
@@ -22,16 +24,22 @@ class Character {
         this.#posY = posY;
     }
     
+    get godMode() {
+        return this.#godMode;
+    }
+    set godMode(godMode) {
+        this.#godMode = godMode;
+    }
+    
     moveUp() {
         let newPosition = document.querySelector(`.col-${this.#posX}.row-${this.#posY - 1}`);
         
-        if(this.#posY >= 0)
+        if((this.#posY - 1) >= 0)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
                newPosition.classList.contains("rock") ||
-               newPosition.classList.contains("stump") ||
-               this.#posY < 0)
+               newPosition.classList.contains("stump"))
             {
                 return false;
             }
@@ -41,12 +49,17 @@ class Character {
                 this.render();
             }
         }
+        else if((this.#posY - 1) >= 0 && this.#godMode)
+        {
+            this.#posY--;
+            this.render();
+        }
     }
     
     moveDown() {
         let newPosition = document.querySelector(`.col-${this.#posX}.row-${this.#posY + 1}`);
         
-        if(this.#posY <= 19)
+        if((this.#posY + 1) <= 19)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -67,7 +80,7 @@ class Character {
     moveLeft() {
         let newPosition = document.querySelector(`.col-${this.#posX - 1}.row-${this.#posY}`);
         
-        if(this.#posX >= 0)
+        if((this.#posX - 1) >= 0)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -87,7 +100,7 @@ class Character {
     moveRight() {
         let newPosition = document.querySelector(`.col-${this.#posX + 1}.row-${this.#posY}`);
         
-        if(this.#posX <= 29)
+        if((this.#posX + 1) <= 29)
         {
             if(newPosition.classList.contains("water") || 
                newPosition.classList.contains("tree") ||
@@ -112,7 +125,7 @@ class Character {
         {
             if(sections[i].classList.contains("character"))
             {
-                sections[i].classList.remove("character")
+                sections[i].classList.remove("character");
             }
         }
         
@@ -121,7 +134,7 @@ class Character {
     }
     
     godMode() {
-        
+        this.#godMode = !this.#godMode;
     }
 }
 
